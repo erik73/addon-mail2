@@ -24,6 +24,7 @@ relaycredentials=$(bashio::config 'smtp_relayhost_credentials')
 messagesizelimit=$(bc <<< "$(bashio::config 'message_size_limit' '10') * 1024000")
 
 chmod +x /usr/local/bin/quota-warning.sh
+mkdir -p /etc/dovecot/users
 chown vmail:dovecot /etc/dovecot/users
 chmod 440 /etc/dovecot/users
 
