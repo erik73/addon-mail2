@@ -92,7 +92,6 @@ sed -i 's~^smtpd_tls_key.*$~smtpd_tls_key_file = /ssl/privkey.pem~g' /etc/postfi
 sed -i 's~^ssl_server_cert_file.*$~ssl_server_cert_file = </ssl/fullchain.pem~g' /etc/dovecot/conf.d/10-ssl.conf
 sed -i 's~^ssl_server_key_file.*$~ssl_server_key_file = </ssl/privkey.pem~g' /etc/dovecot/conf.d/10-ssl.conf
 fi
-ssl_server_cert_file
 database=$(\
     mariadb \
         -u "${username}" -p"${password}" \
