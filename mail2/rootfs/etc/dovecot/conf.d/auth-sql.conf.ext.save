@@ -1,0 +1,38 @@
+# Authentication for SQL users. Included from 10-auth.conf.
+#
+# <doc/wiki/AuthDatabase.SQL.txt>
+sql_driver = mysql
+mysql core-mariadb
+connect = host=core-mariadb dbname=postfixadmin user=postfixadmin password=postfixadmin
+
+passdb mariadb {
+
+  query = SELECT CONCAT('/var/mail/vmail/',maildir) AS home, \
+  CONCAT('maildir:/var/mail/vmail/',maildir) AS mail, \
+  102 AS uid, 105 AS gid, CONCAT('*:bytes=',quota) AS quota_rule \
+  FROM mailbox WHERE username = '%u' AND active = 1
+password_query = SELECT username AS user,password FROM mailbox \
+  WHERE username = '%u' AND active='1'
+  # Path for SQL configuration file, see example-config/dovecot-sql.conf.ext
+  args = /etc/dovecot/dovecot-sql.conf.ext
+}
+
+# "prefetch" user database means that the passdb already provided the
+# needed information and there's no need to do a separate userdb lookup.
+# <doc/wiki/UserDatabase.Prefetch.txt>
+#userdb {
+#  driver = prefetch
+#}
+
+userdb mariadb {
+  driver = sql
+  args = /etc/dovecot/dovecot-sql.conf.ext
+}
+
+# If you don't have any user-specific settings, you can avoid the user_query
+# by using userdb static instead of userdb sql, for example:
+# <doc/wiki/UserDatabase.Static.txt>
+#userdb {
+  #driver = static
+  #args = uid=vmail gid=vmail home=/var/vmail/%u
+#}
