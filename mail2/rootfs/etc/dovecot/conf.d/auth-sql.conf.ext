@@ -4,7 +4,7 @@
 
 sql_driver = mysql
 passdb_default_password_scheme = MD5-CRYPT
-mysql_host = host=core-mariadb
+mysql_host = core-mariadb
 mysql_user = postfixadmin
 mysql_password = postfixadmin
 mysql_dbname = postfixadmin
