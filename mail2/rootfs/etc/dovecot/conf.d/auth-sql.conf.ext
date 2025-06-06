@@ -4,11 +4,12 @@
 
 sql_driver = mysql
 passdb_default_password_scheme = MD5-CRYPT
-mysql_host = core-mariadb
-mysql_user = postfixadmin
-mysql_password = postfixadmin
-mysql_dbname = postfixadmin
-
+mysql mariadb {
+  mysql_host = core-mariadb
+  mysql_user = postfixadmin
+  mysql_password = postfixadmin
+  mysql_dbname = postfixadmin
+}
 
 passdb mariadb {
   passdb_sql_query = SELECT username AS user,password FROM mailbox \
