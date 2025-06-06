@@ -3,7 +3,6 @@
 # <doc/wiki/AuthDatabase.SQL.txt>
 
 sql_driver = mysql
-passdb_default_password_scheme = MD5-CRYPT
 mysql mariadb {
   mysql_host = core-mariadb
   mysql_user = postfixadmin
@@ -12,6 +11,7 @@ mysql mariadb {
 }
 
 passdb sql {
+  passdb_default_password_scheme = MD5-CRYPT
   query = SELECT username AS user,password FROM mailbox \
     WHERE username = '%{user}' AND active='1'
 }
