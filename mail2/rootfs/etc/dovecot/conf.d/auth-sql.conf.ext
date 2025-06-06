@@ -11,12 +11,12 @@ mysql mariadb {
   mysql_dbname = postfixadmin
 }
 
-passdb mariadb {
+passdb sql {
   query = SELECT username AS user,password FROM mailbox \
     WHERE username = '%{user}' AND active='1'
 }
 
-userdb mariadb {
+userdb sql {
   query = SELECT CONCAT('/var/mail/vmail/',maildir) AS home, \
     CONCAT('maildir:/var/mail/vmail/',maildir) AS mail, \
     102 AS uid, 105 AS gid, CONCAT('*:bytes=',quota) AS quota_rule \
