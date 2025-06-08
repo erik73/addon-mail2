@@ -12,12 +12,12 @@ mysql mariadb {
 
 passdb sql {
   passdb_default_password_scheme = MD5-CRYPT
-  query = SELECT username AS user,password FROM mailbox \
+  passdb_sql_query = SELECT username AS user,password FROM mailbox \
     WHERE username = '%{user}' AND active='1'
 }
 
 userdb sql {
-  query = SELECT CONCAT('/var/mail/vmail/',maildir) AS home, \
+  userdb_sql_query = SELECT CONCAT('/var/mail/vmail/',maildir) AS home, \
     CONCAT('maildir:/var/mail/vmail/',maildir) AS mail, \
     102 AS uid, 105 AS gid, CONCAT('*:bytes=',quota) AS quota_rule \
     FROM mailbox WHERE username = '%{user}' AND active = 1
