@@ -1,12 +1,8 @@
 #!/bin/sh
 
-# Generates a self-signed certificate.
-# Edit dovecot-openssl.cnf before running this.
-
 umask 077
-OPENSSL=${OPENSSL-openssl}
-SSLDIR=${SSLDIR-/etc/ssl/dovecot}
-OPENSSLCONFIG=${OPENSSLCONFIG-dovecot-openssl.cnf}
+
+SSLDIR=/etc/ssl/dovecot
 
 CERTDIR=$SSLDIR
 
@@ -29,7 +25,7 @@ if [ -f "$KEYFILE" ]; then
   exit 1
 fi
 
-$OPENSSL req -new -x509 -nodes -config "$OPENSSLCONFIG" -out "$CERTFILE" -keyout "$KEYFILE" -days 365 || exit 2
+openssl req -new -x509 -nodes -config /usr/local/bin/dovecot-openssl.cnf -out "$CERTFILE" -keyout "$KEYFILE" -days 365 || exit 2
 chmod 0600 "$KEYFILE"
-echo 
-$OPENSSL x509 -subject -fingerprint -noout -in "$CERTFILE" || exit 2
+echo
+openssl x509 -subject -fingerprint -noout -in "$CERTFILE" || exit 2
