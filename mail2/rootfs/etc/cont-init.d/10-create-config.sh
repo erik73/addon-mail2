@@ -88,6 +88,7 @@ sed -i "s/smtp_sasl_password_maps =/smtp_sasl_password_maps = static:${relaycred
 fi
 
 if bashio::config.false "letsencrypt_certs"; then
+bashio::log.info "Self-signed certs will be used..."
 # /usr/local/bin/mkcert.sh
 fi
 
@@ -98,6 +99,7 @@ sed -i 's~^smtpd_tls_key.*$~smtpd_tls_key_file = /ssl/privkey.pem~g' /etc/postfi
 sed -i 's~^ssl_server_cert_file.*$~ssl_server_cert_file = /ssl/fullchain.pem~g' /etc/dovecot/conf.d/10-ssl.conf
 sed -i 's~^ssl_server_key_file.*$~ssl_server_key_file = /ssl/privkey.pem~g' /etc/dovecot/conf.d/10-ssl.conf
 fi
+
 database=$(\
     mariadb \
         -u "${username}" -p"${password}" \
