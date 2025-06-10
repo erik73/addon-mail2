@@ -45,7 +45,7 @@ addgroup vmail
 rm -fr /var/mail
 ln -s /data/mail /var/mail
 mkdir -p /var/mail/vmail/sieve/global
-chown -R vmail:postdrop /var/mail
+chown -R vmail:vmail /var/mail
 mkdir -p /var/www/postfixadmin/templates_c; \
 chown -R nginx: /var/www/postfixadmin; \
 
@@ -150,7 +150,7 @@ require ["vnd.dovecot.pipe", "copy", "imapsieve"];
 pipe :copy "rspamc" ["-h", "32b8266a-mailfilter:11334", "learn_ham"];
 EOF
 
-chown -R vmail:postdrop /var/mail/
+chown -R vmail:vmail /var/mail/
 
 fi
 
