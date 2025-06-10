@@ -89,7 +89,7 @@ fi
 
 if bashio::config.false "letsencrypt_certs"; then
 bashio::log.info "Self-signed certs will be used..."
-# /usr/local/bin/mkcert.sh
+/usr/local/bin/mkcert.sh
 fi
 
 if bashio::config.true "letsencrypt_certs"; then
