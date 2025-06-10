@@ -78,7 +78,7 @@ sed -i "s/relayhost =/relayhost = ${relayhost}/g" /etc/postfix/main.cf
 fi
 
 if ! bashio::config.has_value "smtp_relayhost_credentials"; then
-/usr/local/bin/mkcert.sh
+# /usr/local/bin/mkcert.sh
 fi
 
 if bashio::config.has_value "smtp_relayhost_credentials"; then
