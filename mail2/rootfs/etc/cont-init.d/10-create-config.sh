@@ -77,6 +77,10 @@ if bashio::config.has_value "smtp_relayhost"; then
 sed -i "s/relayhost =/relayhost = ${relayhost}/g" /etc/postfix/main.cf
 fi
 
+if ! bashio::config.has_value "smtp_relayhost_credentials"; then
+/usr/local/bin/mkcert.sh
+fi
+
 if bashio::config.has_value "smtp_relayhost_credentials"; then
 cat << EOF >> /etc/postfix/main.cf
 smtp_sasl_auth_enable = yes
@@ -171,6 +175,4 @@ smtpd_milters = inet:32b8266a-mailfilter:11332
 non_smtpd_milters = inet:32b8266a-mailfilter:11332
 EOF
 
-#    sed -i 's/^  mail.*/& sieve/' /etc/dovecot/conf.d/20-lmtp.conf
-#    sed -i 's/^  mail.*/& imap_sieve/' /etc/dovecot/conf.d/20-imap.conf
 fi
