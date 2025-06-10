@@ -87,7 +87,7 @@ EOF
 sed -i "s/smtp_sasl_password_maps =/smtp_sasl_password_maps = static:${relaycredentials}/g" /etc/postfix/main.cf
 fi
 
-if ! bashio::config.true "letsencrypt_certs"; then
+if bashio::config.false "letsencrypt_certs"; then
 # /usr/local/bin/mkcert.sh
 fi
 
