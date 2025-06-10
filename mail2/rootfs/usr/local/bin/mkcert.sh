@@ -25,7 +25,7 @@ if [ -f "$KEYFILE" ]; then
   exit 1
 fi
 
-openssl req -new -x509 -nodes -config /usr/local/bin/dovecot-openssl.cnf -out "$CERTFILE" -keyout "$KEYFILE" -days 365 || exit 2
+openssl req -new -x509 -nodes -config /etc/dovecot/dovecot-openssl.cnf -out "$CERTFILE" -keyout "$KEYFILE" -days 365 || exit 2
 chmod 0600 "$KEYFILE"
 echo
 openssl x509 -subject -fingerprint -noout -in "$CERTFILE" || exit 2
