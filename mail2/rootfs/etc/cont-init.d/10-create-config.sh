@@ -170,10 +170,9 @@ if bashio::config.true "enable_mailfilter"; then
     bashio::log.info "Configuring connection to Mailfilter addon"
     cat << EOF >> /etc/postfix/main.cf
 milter_protocol = 6
-milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
+# milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
 milter_default_action = accept
 smtpd_milters = inet:32b8266a-mailfilter:11332
-non_smtpd_milters = inet:32b8266a-mailfilter:11332
 EOF
 
 fi
