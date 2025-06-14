@@ -64,7 +64,7 @@ sed -i 's/^hosts .*$/hosts = '$host'/' /etc/postfix/sql/*.cf
 sed -i 's/^  mysql_host .*$/  mysql_host = '$host'/' /etc/dovecot/conf.d/auth-sql.conf.ext
 sed -i 's/^  mysql_user .*$/  mysql_user = '$username'/' /etc/dovecot/conf.d/auth-sql.conf.ext
 sed -i 's/^  mysql_password .*$/  mysql_password = '$password'/' /etc/dovecot/conf.d/auth-sql.conf.ext
-#sed -i "s/postmaster_address = postmaster/postmaster_address = postmaster@${domain}/g" /etc/dovecot/conf.d/20-lmtp.conf
+sed -i "s/postmaster_address = postmaster/postmaster_address = postmaster@${domain}/g" /etc/dovecot/conf.d/20-lmtp.conf
 sed -i "s/From: postmaster/From: postmaster@${domain}/g" /usr/local/bin/quota-warning.sh
 sed -i "s/@domain/@${domain}/g" /var/www/postfixadmin/config.local.php
 sed -i "s/myhostname =/myhostname = ${myhostname}/g" /etc/postfix/main.cf
@@ -170,7 +170,7 @@ if bashio::config.true "enable_mailfilter"; then
     bashio::log.info "Configuring connection to Mailfilter addon"
     cat << EOF >> /etc/postfix/main.cf
 milter_protocol = 6
-# milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
+milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
 milter_default_action = accept
 smtpd_milters = inet:32b8266a-mailfilter:11332
 EOF
